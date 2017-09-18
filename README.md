@@ -17,13 +17,20 @@ Since the project needs to ensure data confidenciality and integrity, there aren
 In order to meet with those requirements, the project uses the PBE methodology. The process, as used by [John Peñafiel](https://penafieljlm.com/2016/12/30/password-based-database-encryption/#problem-changing-passwords), follows these steps:
 
 1\. When the user registers, the system provides a randomly generated recovery code, providing the user the ability to randomly generate a new set (password and a new recovery code) on demand, if she/he forgets her/his password;
+
 2\. First is randomly generated an intermediary encryption key, which'll be used to encrypt a data;
+
 3\. Then this encryption key is encrypted with a derivation of their password (using a Key Derivation Functions - KDF), which can be now stored in a AES encrypted file;
+
 4\. Whenever there's a need to encrypt or decrypt some data, the user enter her/his password and run it through the same KDF;
+
 5\. The password then is used to decrypt the encrypted intermediary encryption key, which will be used after decrypted to encrypt or decrypt user data.
+
 6\. If the user forgets his password, she/he enters the recovery code passed on registration, which will do the same KDF process, which are represented below the password KDF fluxogram showed in the Figure below:
 
 ![Using Recovery Codes to Create Recoverable Copies of the Intermediate Key](https://raw.githubusercontent.com/davikawasaki/password-manager-security-class/master/imgs/crypt_pbe_recovery_questions.png)
+
+Using Recovery Codes to Create Recoverable Copies of the Intermediate Key
 
 # REFERENCES
 
