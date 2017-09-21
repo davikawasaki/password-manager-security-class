@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="br">
+    <head>
+        <!--I really don't know if the meta is necessary here-->
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <!--Page Title-->
+        <title>Password Manager</title>
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
+        <!--Import custom Stylesheet-->
+        <link rel="stylesheet" href="../css/style.css"/>
+    </head>
+    <!--The body of the page itself-->
+    <body class="grey lighten-2">
+        <ul id="slide-out" class="side-nav fixed">
+            <li><div class="user-view">
+                <div class="background">
+                    <img src="../imgs/password-security.png">
+                </div>
+                <a href="#"><img class="circle" src="../imgs/avatar.png"></a>
+                <a href="#"><span class="white-text name">John Snow</span></a>
+            </div>
+            </li>
+            <li><a class="subheader">Password Manager</a></li>
+            <li><a href="#" class="waves-effect"><i class="material-icons">person_outline</i>Personal Data</a></li>
+            <li><a href="#" class="waves-effect" ><i class="material-icons">lock_outline</i>Passwords</a></li>
+        </ul>
+        <nav>
+            <div class="nav-wrapper teal lighten-4">
+                <a href="#" class="brand-logo">Login</a>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row valign-wrapper">
+                <div class="col s5 offset-s1 valign">
+                    <div class="card white">
+                        <nav>
+                            <div class="nav-wrapper teal lighten-4">
+                                <a href="#" class="brand-logo">Warning</a>
+                            </div>
+                        </nav>
+                        <div class="card-content black-text">
+                            <p>Be careful with your password it is very important.
+                                If you lose it the only way to recover is through your register code.</p>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input placeholder="Username" id="user_name" type="text" class="validate">
+                                </div>
+                                <div class="input-field col s12">
+                                    <input placeholder="Password" id="password" type="password" class="validate">
+                                </div>
+                                <a class="col s5 offset-s7 waves-effect waves-light btn"><i class="material-icons right">send</i>Login</a>
+                            </div>
+                        </div>
+                        <div class="row card-action">
+                            <div class="col s12">
+                                <a href="#" class="grey-text col s8">Forgot your password</a>
+                                <a href="#" class="grey-text col s1">Register</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <!--Import jquery.js-->
+    <script type="text/javascript" src="../js/jquery-3.2.1.js"></script>
+    <!--Import materialize.js-->
+    <script type="text/javascript" src="../js/materialize.js"></script>
+</html>
