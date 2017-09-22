@@ -4,11 +4,21 @@ This work covers a password manager project developed with symmetric AES keys an
 
 The goal is to enable an user to store her/his services' passwords in a encrypted PBE system, with a manageable and strong secret password. The first intention is to develop with Python language and then with Javascript.
 
-# TECHNOLOGIES USED
+# TECHNOLOGIES & LIBRARIES USED
 
 1) [Python 2.7](https://docs.python.org/2/)
 
 2) [PyCrypto API 2.6](https://www.dlitz.net/software/pycrypto/api/2.6/)
+
+3) [Hashlib](https://docs.python.org/2/library/hashlib.html)
+
+4) [re](https://docs.python.org/2/library/re.html)
+
+5) [htmlPy](http://amol-mandhane.github.io/htmlPy/)
+
+6) [jQuery](https://api.jquery.com/)
+
+7) [Materialize](http://materializecss.com/getting-started.html)
 
 # IMPLEMENTATION
 
