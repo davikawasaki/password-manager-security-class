@@ -1,12 +1,16 @@
-import os
-import htmlPy
+#!/usr/bin/python
+
+import os, sys
+import htmlPy, PySide
 from PyQt4 import QtGui
+# Import back-end functionalities
+from controllers import RegisterClass as RC
 
 # Initial config
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 # GUI initializations
-app = htmlPy.AppGUI(title=u"Password Manager - Created by André Poletto, Davi Kawasaki and João Vitor Bertoncini", maximized=True, plugins=True)
+app = htmlPy.AppGUI(title=u"Password Manager - Created by Andre Poletto, Davi Kawasaki and Joao Vitor Bertoncini", maximized=True, plugins=True)
 
 
 # GUI configurations
@@ -15,15 +19,14 @@ app.template_path = os.path.join(BASE_DIR, "templates/")
 
 app.web_app.setMinimumWidth(1024)
 app.web_app.setMinimumHeight(768)
-app.window.setWindowIcon(QtGui.QIcon(BASE_DIR + "/static/img/favicon.ico"))
+app.window.setWindowIcon(PySide.QtGui.QIcon(BASE_DIR + "/static/img/icon.png"))
+
+app.template = ("index.html", {})
 
 # Binding of back-end functionalities with GUI
 
-# Import back-end functionalities
-from securityApp import Register
-
 # Register back-end functionalities
-app.bind(Register())
+app.bind(RC.Register(app))
 
 # Instructions for running application
 if __name__ == "__main__":

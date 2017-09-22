@@ -3,15 +3,14 @@ import os, sys, fnmatch
 from Crypto.Protocol import KDF
 from Crypto.Cipher import AES
 import hashlib
-from securityApp import app as passwordManagerApp
 
 KEY_LENGTH = 32
 
 class ListData(htmlPy.Object):
 
-    def __init__(self):
-        super(ListData.self).__init__()
-        return
+    def __init__(self, app):
+        super(ListData, self).__init__()
+        self.app = app
 
     @htmlPy.Slot(str, result=str)
     def listInfo(self, data):

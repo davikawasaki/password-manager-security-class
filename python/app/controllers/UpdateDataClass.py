@@ -3,15 +3,14 @@ import os, sys, time, datetime
 from Crypto.Protocol import KDF
 from Crypto.Cipher import AES
 import hashlib
-from securityApp import app as passwordManagerApp
 
 KEY_LENGTH = 32
 
 class UpdateData(htmlPy.Object):
 
-    def __init__(self):
-        super(UpdateData.self).__init__()
-        return
+    def __init__(self, app):
+        super(UpdateData, self).__init__()
+        self.app = app
 
     @htmlPy.Slot(str, result=str)
     def updateInfo(self, data):

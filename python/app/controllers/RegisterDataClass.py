@@ -3,15 +3,14 @@ import os, sys, time, datetime
 from Crypto.Protocol import KDF
 from Crypto.Cipher import AES
 import hashlib
-from securityApp import app as passwordManagerApp
 
 KEY_LENGTH = 32
 
 class RegisterData(htmlPy.Object):
 
-    def __init__(self):
-        super(RegisterData.self).__init__()
-        return
+    def __init__(self, app):
+        super(RegisterData, self).__init__()
+        self.app = app
 
     @htmlPy.Slot(str, result=str)
     def regNewInfo(self, data):
@@ -33,7 +32,6 @@ class RegisterData(htmlPy.Object):
             df.write(encData)
             df.close()
             key = None
-            return true
         else return 'Senha incorreta!'
 
     def checkAuth(self, fileType, pw, user):

@@ -3,43 +3,45 @@ import os, sys
 from Crypto.Protocol import KDF
 from Crypto.Cipher import AES
 import hashlib
-from securityApp import app as passwordManagerApp
 
 KEY_LENGTH = 32
 
 class Register(htmlPy.Object):
 
-    def __init__(self):
-        super(Register.self).__init__()
-        return
+    def __init__(self, app):
+        super(Register, self).__init__()
+        self.app = app
 
     @htmlPy.Slot(str, result=str)
-    def regUser(self, data):
+    def regUser(self, json_data="[]"):
+        data = json.loads(json_data)
+    
         # ENCRYPT INTERMEDIARY KEY WITH KDF PASSWORD
         # Generate salt for KDF encryption and iv for key encryption
-        salt = self.genSalt('password', data.username)
-        iv = self.genIV('password', data.username)
+        salt = self.genSalt('password', data['username'])
+        iv = self.genIV('password', data['username'])
 
         # Generate intermediary key
         key = self.genRandom()
-        key_padded = self.pad(self.key, len(self.key))
+        key_padded = self.pad(key, len(key))
 
         # Hash password and encript intermediary key
-        self.genHash(data.password, 'password', data.username)
-        self.encIntKey(data.password, key_padded, salt, iv, 'password', data.username)
+        self.genHash(data['password'], 'password', data['username'])
+        self.encIntKey(data['password'], key_padded, salt, iv, 'password', data['username'])
 
         # ENCRYPT INTERMEDIARY KEY WITH KDF RECOVERY CODE
         # Generate salt for KDF encryption and iv for key encryption
-        salt = self.genSalt('reccode', data.username)
-        iv = self.genIV('reccode', data.username)
+        salt = self.genSalt('reccode', data['username'])
+        iv = self.genIV('reccode', data['username'])
 
         # Hash recovery code and encript intermediary key
         reccode = self.genRecCode()
-        self.genHash(reccode, 'reccode', data.username)
-        self.encIntKey(reccode, key_padded, salt, iv, 'reccode', data.username)
+        self.genHash(reccode, 'reccode', data['username'])
+        self.encIntKey(reccode, key_padded, salt, iv, 'reccode', data['username'])
 
         # Generate info encryption iv
-        ivD = self.genIV('data', data.username)
+        ivD = self.genIV('data', data['username'])
+        self.app.template = ("test.html", {})
 
     def genRandom(self):
         return os.urandom(KEY_LENGTH)
@@ -49,7 +51,7 @@ class Register(htmlPy.Object):
 
     def genSalt(self, fileType, user):
         # Randomly generate a fileType salt
-        sf = open('../data/security/salt_' + fileType + '_' + str(KEY_LENGTH) + '_' + user + '.txt', 'w')
+        sf = open(os.path.dirname(__file__) + '/../data/security/salt_' + fileType + '_' + str(KEY_LENGTH) + '_' + user + '.txt', 'w')
         salt = os.urandom(KEY_LENGTH)
         sf.write(salt)
         sf.close()
@@ -57,7 +59,7 @@ class Register(htmlPy.Object):
 
     def genIV(self, fileType, user):
         # Randomly generate a fileType iv
-        ivf = open('../data/security/iv_' + fileType + '_' + str(KEY_LENGTH/2) + '_' + user + '.txt', 'w')
+        ivf = open(os.path.dirname(__file__) + '/../data/security/iv_' + fileType + '_' + str(KEY_LENGTH/2) + '_' + user + '.txt', 'w')
         iv = os.urandom(KEY_LENGTH/2)
         ivf.write(iv)
         ivf.close()
@@ -74,7 +76,7 @@ class Register(htmlPy.Object):
         self.storeEncKey(encKey, fileType, user)
 
     def storeEncKey(self, encKey, fileType, user):
-        kf = open('../data/security/aes_' + fileType + '_enc_' + str(KEY_LENGTH) + '_' + user + '.key', 'w')
+        kf = open(os.path.dirname(__file__) + '/../data/security/aes_' + fileType + '_enc_' + str(KEY_LENGTH) + '_' + user + '.key', 'w')
         kf.write(encKey)
         kf.close()
 
@@ -82,8 +84,6 @@ class Register(htmlPy.Object):
         return os.urandom(KEY_LENGTH/4).encode('base-64')
 
     def genHash(self, pw, fileType, user):
-        hf = open('../data/security/hash_' + fileType + '_' + user + '.txt', 'w')
+        hf = open(os.path.dirname(__file__) + '/../data/security/hash_' + fileType + '_' + user + '.txt', 'w')
         hf.write(hashlib.sha256(pw).hexdigest())
         hf.close()
-
-passwordManagerApp.bind(Register())
