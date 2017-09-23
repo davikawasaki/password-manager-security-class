@@ -8,6 +8,14 @@ header, main, footer, body {
     }
 }
 
+.background{
+    height: 150px;
+}
+
+#navOps{
+    padding-top: 35px;
+}
+
 .nav-wrapper{
     padding-left: 15px;
 }

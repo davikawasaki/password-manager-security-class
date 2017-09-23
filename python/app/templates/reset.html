@@ -10,19 +10,19 @@
         <!--Import Google Icon Font-->
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="{{ 'css/materialize.css' | staticfile }}"  media="screen,projection"/>
         <!--Import custom Stylesheet-->
-        <link rel="stylesheet" href="../css/reset.css"/>
+        <link rel="stylesheet" href="{{ 'css/reset.css' | staticfile }}"/>
     </head>
     <!--The body of the page itself-->
     <body>
         <ul id="slide-out" class="side-nav fixed">
             <li><div class="user-view">
                 <div class="background">
-                    <img src="../imgs/password-security.png">
+                    <img src="{{ 'img/password-security.png' | staticfile }}">
                 </div>
                 <div class="row">
-                    <a href="#" class="col s4"><img class="circle" src="../imgs/avatar.png"></a>
+                    <a href="#" class="col s4"><img class="circle" src="{{ 'img/avatar.png' | staticfile }}"></a>
                     <a href="#" class="col s8"><span class="white-text name">John Snow</span></a>
                 </div>
             </div>
@@ -70,9 +70,9 @@
         </form>
     </body>
     <!--Import jquery.js-->
-    <script type="text/javascript" src="../js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="{{ 'js/jquery-3.2.1.js' | staticfile }}"></script>
     <!--Import materialize.js-->
-    <script type="text/javascript" src="../js/materialize.js"></script>
+    <script type="text/javascript" src="{{ 'js/materialize.js' | staticfile }}"></script>
     <!--Import custom js-->
-    <script type="text/javascript" src="../js/reset.js"></script>
+    <script type="text/javascript" src="{{ 'js/reset.js' | staticfile }}"></script>
 </html>

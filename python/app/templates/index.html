@@ -10,9 +10,9 @@
         <!--Import Google Icon Font-->
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="{{ 'css/materialize.css' | staticfile }}"  media="screen,projection"/>
         <!--Import custom Stylesheet-->
-        <link type="text/css" rel="stylesheet" href="../css/login.css" media="screen,projection" />
+        <link rel="stylesheet" href="{{ 'css/login.css' | staticfile }}"/>
     </head>
     <!--The body of the page itself-->
     <body class="white">
@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="fields" id="fields">
                   <ti class="col s12"><strong><font size="5">Password Manager</font></strong></ti>
-                  <img src="../imgs/shield.png" class="loginImg">
+                  <img src="{{ 'img/shield.png' | staticfile }}" class="loginImg">
                   <h4 class="warningText">Warning</h4>
                   <ti class="warningText">
                     Be careful with your password, it is very important.
@@ -68,7 +68,7 @@
                     <div class="row fields">
                         <h3>Reset Master Password Code</h3>
                         <t1>Be careful with this code, it is the only way to reset your master password.</t1>
-                        <h1>2S@s!sad2</h1>
+                        <h1 class="resetCode">2S@s!sad2</h1>
                         <a class="col s4 offset-s4 waves-effect waves-light btn" id="agreeModalBtn">
                             Ok, I will be careful
                         </a>
@@ -79,9 +79,9 @@
 
     </body>
     <!--Import jquery.js-->
-    <script type="text/javascript" src="../js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="{{ 'js/jquery-3.2.1.js' | staticfile }}"></script>
     <!--Import materialize.js-->
-    <script type="text/javascript" src="../js/materialize.js"></script>
+    <script type="text/javascript" src="{{ 'js/materialize.js' | staticfile }}"></script>
     <!--Import custom js-->
-    <script type="text/javascript" src="../js/login.js"></script>
+    <script type="text/javascript" src="{{ 'js/login.js' | staticfile }}"></script>
 </html>

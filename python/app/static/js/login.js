@@ -51,7 +51,7 @@ function fades(){
 
 // Changes view from login to register
 $('#registerBtn').on('click', function(event) {
-  // If user is on Login view
+  // If user is on Register view
   if(document.getElementById('registerBtn').innerHTML != "Register"){
     // FadesOut warningText and Password Confirmation
     fades();
@@ -62,7 +62,7 @@ $('#registerBtn').on('click', function(event) {
     // Changes RegisterButton Text
     document.getElementById('registerBtn').innerHTML = "Register";
   }
-  // If user is on Register view
+  // If user is on Login view
   else {
     // Changes Page Title
     document.getElementById('logo').innerHTML = "Register";
@@ -91,11 +91,10 @@ $('#registerBtn').on('click', function(event) {
 });
 
 $('#sendBtn').on('click', function() {
-  console.log(document.getElementById("username").value);
-  console.log(document.getElementById("password").value);
-
-  // Change this to resgister function.
-  $('#registerModal').modal('open');
+    if(document.getElementById('registerBtn').innerHTML != "Register") {
+        // Change this to resgister function.
+        $('#registerModal').modal('open');
+    }
 });
 
 // Dismiss modals

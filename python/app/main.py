@@ -1,8 +1,12 @@
 #!/usr/bin/python
 
-import os, sys
-import htmlPy, PySide
-from PyQt4 import QtGui
+import os
+# import sys
+
+import PySide
+import htmlPy
+
+# from PyQt4 import QtGui
 # Import back-end functionalities
 from controllers import RegisterClass as RC
 from controllers import ListDataClass as LDC
@@ -13,8 +17,8 @@ from controllers import UpdateDataClass as UDC
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 # GUI initializations
-app = htmlPy.AppGUI(title=u"Password Manager - Created by Andre Poletto, Davi Kawasaki and Joao Vitor Bertoncini", maximized=True, plugins=True)
-
+app = htmlPy.AppGUI(title=u"Password Manager - Created by Andre Poletto, Davi Kawasaki and Joao Vitor Bertoncini",
+                    maximized=True, plugins=True)
 
 # GUI configurations
 app.static_path = os.path.join(BASE_DIR, "static/")
