@@ -1,0 +1,6 @@
+// POST request from path: RegisterClass.regUser
+
+{
+    "username": "joaodasilva",
+    "password": "joao@354d3"
+}

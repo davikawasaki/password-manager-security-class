@@ -1,0 +1,6 @@
+// POST request from path: ListDataClass.logUser
+
+{
+    "username": "joaodasilva",
+    "password": "joao@354d3"
+}

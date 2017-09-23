@@ -1,0 +1,25 @@
+// GET response from path: ListDataClass.listInfo
+
+[
+    {
+        "id": 54958495849833,
+        "name": "gmail",
+        "email": "gmail@gmail.com",
+        "timestamp": 1506176351,
+        "password": "gmailme@!$465"
+    },
+    {
+        "id": 54958495849833,
+        "name": "facebook",
+        "email": "facebook@fb.com",
+        "timestamp": 1506176379,
+        "password": "facebookme@!$465"
+    },
+    {
+        "id": 54958495849834,
+        "name": "twitter",
+        "email": "twitter@twitter.com",
+        "timestamp": 1506176410,
+        "password": "twitterme@!$465"
+    }
+]
