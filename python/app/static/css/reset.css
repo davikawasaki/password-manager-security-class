@@ -1,0 +1,38 @@
+header, main, footer, body {
+    padding-left: 300px;
+}
+
+@media only screen and (max-width : 800px) {
+    header, main, footer, body {
+        padding-left: 0;
+    }
+}
+
+.nav-wrapper{
+    padding-left: 15px;
+}
+
+.form{
+    padding: 2%;
+}
+
+.divider{
+    width: 100%;
+}
+
+.warningText, .passCheck{
+  margin-top: 10px;
+}
+
+.loginImg {
+  height: 15vh;
+  width: 15vh;
+}
+
+.fields{
+  text-align: center;
+}
+
+#sendBtn{
+  margin-top: 10px;
+}
