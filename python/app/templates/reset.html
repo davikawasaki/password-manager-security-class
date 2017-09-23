@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="br">
+    <head>
+        <!--I really don't know if the meta is necessary here-->
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <!--Page Title-->
+        <title>Password Manager</title>
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
+        <!--Import custom Stylesheet-->
+        <link rel="stylesheet" href="../css/reset.css"/>
+    </head>
+    <!--The body of the page itself-->
+    <body>
+        <ul id="slide-out" class="side-nav fixed">
+            <li><div class="user-view">
+                <div class="background">
+                    <img src="../imgs/password-security.png">
+                </div>
+                <div class="row">
+                    <a href="#" class="col s4"><img class="circle" src="../imgs/avatar.png"></a>
+                    <a href="#" class="col s8"><span class="white-text name">John Snow</span></a>
+                </div>
+            </div>
+            </li>
+            <div id="navOps">
+                <li><a class="subheader">Password Manager</a></li>
+                <li><a href="home.html" class="waves-effect" id="homeBtn"><i class="material-icons">home</i>Home</a></li>
+                <li><a href="passwords.html" class="waves-effect" id="passwordsBtn"><i class="material-icons">lock_outline</i>Passwords</a></li>
+                <li><a href="#" class="waves-effect" id="masterKeyBtn"><i class="material-icons">vpn_key</i>Reset Master Password</a></li>
+            </div>
+        </ul>
+        <nav>
+            <div class="nav-wrapper teal lighten-4">
+                <a href="#" class="brand-logo" id="logo">Change Password</a>
+            </div>
+        </nav>
+        <form class="form">
+            <div class="row">
+                <div class="fields" id="fields">
+                  <h4>Attention</h4>
+                  <ti>
+                    In order to change your password you will need to have the registration code.
+                  </ti>
+                  <div class="input-field col s12">
+                      <input id="registrationCode" type="text"
+                             class="validate" required>
+                      <label id="lblRegistrationCode" for="registrationCode">Registraton Code</label>
+                  </div>
+                  <div class="input-field col s12">
+                      <input id="password" type="password"
+                             class="validate" required minlength="8">
+                      <label id="lblPassword" for="password"
+                             data-error="Password must contain a minimun of 8 characters">New Password</label>
+                  </div>
+                  <div class="input-field col s12 passCheck">
+                      <input id="passwordConfirm" type="password" class="validate">
+                      <label id="lblPasswordConfirm" for="passwordConfirm"
+                             data-error="Password not match">Confirm Password</label>
+                  </div>
+                </div>
+                <a class="col s5 offset-s7 waves-effect waves-light btn modal-trigger" id="sendBtn">
+                    <i class="material-icons right">send</i>Reset Password
+                </a>
+            </div>
+        </form>
+    </body>
+    <!--Import jquery.js-->
+    <script type="text/javascript" src="../js/jquery-3.2.1.js"></script>
+    <!--Import materialize.js-->
+    <script type="text/javascript" src="../js/materialize.js"></script>
+    <!--Import custom js-->
+    <script type="text/javascript" src="../js/reset.js"></script>
+</html>
