@@ -1,5 +1,5 @@
 import htmlPy, json
-import os, sys, fnmatch
+import os, sys, re, fnmatch
 from Crypto.Protocol import KDF
 from Crypto.Cipher import AES
 import hashlib
@@ -13,39 +13,47 @@ class ListData(htmlPy.Object):
         self.app = app
 
     @htmlPy.Slot(str, result=str)
-    def listInfo(self, data):
-        if checkAuth('password', data.password, data.username):
-            # Get decrypted intermediary key
-            key = self.decryptKey('password', data.password, data.username)
-            # Open iv to encrypt data info
-            iv = open('../data/security/iv_data_' + str(KEY_LENGTH/2) + '_' + data.username + '.txt').read()
-            
-            # Create the cipher object and process the input stream
-            cipher = AES.AESCipher(key, AES.MODE_CBC, iv)
+    def logUser(self, data):
+        if self.checkAuth('password', data.password, data.username):
+            self.listInfo(data)
+        else:
+            self.app.template = ("index.html", {"error": "User and/or password invalid!"})
 
-            # Decrypt info files
-            userData = decryptInfoFiles(cipher, len(key), listUserData(data.username))
-            key = None
-            
-            return userData
-        else return 'Senha incorreta!'
+    @htmlPy.Slot(str, result=str)
+    def listInfo(self, data):
+        # Get decrypted intermediary key
+        key = self.decryptKey('password', data.password, data.username)
+        # Open iv to encrypt data info
+        iv = open('../data/security/iv_data_' + str(KEY_LENGTH/2) + '_' + data.username + '.txt').read()
+        
+        # Create the cipher object and process the input stream
+        cipher = AES.AESCipher(key, AES.MODE_CBC, iv)
+
+        # Decrypt info files
+        userData = self.decryptInfoFiles(cipher, len(key), self.listUserData(data.username))
+        key = None
+        
+        return userData
 
     @htmlPy.Slot(str, result=str)
     def removeInfo(self, data):
-        if checkAuth('password', data.password, data.username):
+        if self.checkAuth('password', data.password, data.username):
             # Get decrypted intermediary key
             key = self.decryptKey('password', data.password, data.username)
             # Remove file from respective info
-            os.remove('../data/info/' + data.infoName + '_enc_' + user + '_' + data.timestamp + '.txt')
+            os.remove('../data/info/' + data.infoName + '_enc_' + data.username + '_' + data.timestamp + '.txt')
 
             return True
-        else return 'Senha incorreta!'
+        else:
+            return 'Senha incorreta!'
 
     def checkAuth(self, fileType, pw, user):
         hf = open('../data/security/hash_' + fileType + '_' + user + '.txt', 'rb').read()
         hash = hashlib.sha256(pw).hexdigest()
-        if(hash == hf) return True
-        else return False
+        if(hash == hf):
+            return True
+        else:
+            return False
 
     def decryptKey(self, fileType, pw, user):
         # Read password salt and iv
@@ -87,5 +95,3 @@ class ListData(htmlPy.Object):
 
     def unpad (self, s):
         return s[0:-ord(s[-1])]
-
-passwordManagerApp.bind(UpdateData())

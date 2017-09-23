@@ -5,6 +5,9 @@ import htmlPy, PySide
 from PyQt4 import QtGui
 # Import back-end functionalities
 from controllers import RegisterClass as RC
+from controllers import ListDataClass as LDC
+from controllers import RegisterDataClass as RDC
+from controllers import UpdateDataClass as UDC
 
 # Initial config
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -21,12 +24,15 @@ app.web_app.setMinimumWidth(1024)
 app.web_app.setMinimumHeight(768)
 app.window.setWindowIcon(PySide.QtGui.QIcon(BASE_DIR + "/static/img/icon.png"))
 
-app.template = ("index.html", {})
+app.template = ("index.html", {"list": []})
 
 # Binding of back-end functionalities with GUI
 
 # Register back-end functionalities
 app.bind(RC.Register(app))
+app.bind(LDC.ListData(app))
+app.bind(RDC.RegisterData(app))
+app.bind(UDC.UpdateData(app))
 
 # Instructions for running application
 if __name__ == "__main__":

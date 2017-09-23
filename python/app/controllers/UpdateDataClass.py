@@ -14,32 +14,35 @@ class UpdateData(htmlPy.Object):
 
     @htmlPy.Slot(str, result=str)
     def updateInfo(self, data):
-        if checkAuth('password', data.password, data.username):
+        if self.checkAuth('password', data.password, data.username):
             # Get decrypted intermediary key
             key = self.decryptKey('password', data.password, data.username)
             # Open iv to encrypt data info
             iv = open('../data/security/iv_data_' + str(KEY_LENGTH/2) + '_' + data.username + '.txt').read()
             # Open data info file
-            df = open('../data/info/' + data.infoName + '_enc_' + user + '_' + data.timestamp + '.txt', 'w')
+            df = open('../data/info/' + data.infoName + '_enc_' + data.username + '_' + data.timestamp + '.txt', 'w')
             # Pad data info
-            infoPad = self.pad(infoPass, len(key))
+            infoPad = self.pad(data.infoPass, len(key))
 
             # Create the cipher object and process the input stream
             cipher = AES.AESCipher(key, AES.MODE_CBC, iv)
 
-            encData = iv + cipher.encrypt(dfPad))
+            encData = (iv + cipher.encrypt(infoPad))
 
             df.write(encData)
             df.close()
             key = None
-            return true
-        else return 'Senha incorreta!'
+            return True
+        else:
+            return 'Senha incorreta!'
 
     def checkAuth(self, fileType, pw, user):
         hf = open('../data/security/hash_' + fileType + '_' + user + '.txt', 'rb').read()
         hash = hashlib.sha256(pw).hexdigest()
-        if(hash == hf) return true
-        else return false
+        if(hash == hf):
+            return True
+        else:
+            return False
 
     def decryptKey(self, fileType, pw, user):
         # Read password salt and iv
@@ -64,5 +67,3 @@ class UpdateData(htmlPy.Object):
 
     def unpad (self, s):
         return s[0:-ord(s[-1])]
-
-passwordManagerApp.bind(UpdateData())
