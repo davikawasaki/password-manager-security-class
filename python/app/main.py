@@ -12,6 +12,9 @@ from controllers import RegisterClass as RC
 from controllers import ListDataClass as LDC
 from controllers import RegisterDataClass as RDC
 from controllers import UpdateDataClass as UDC
+from controllers import RemoveDataClass as REDC
+from controllers import LoginClass as LGC
+from controllers import CommonClass as CC
 
 # Initial config
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -36,7 +39,10 @@ app.template = ("index.html", {"list": []})
 app.bind(RC.Register(app))
 app.bind(LDC.ListData(app))
 app.bind(RDC.RegisterData(app))
+app.bind(REDC.RemoveData(app))
 app.bind(UDC.UpdateData(app))
+app.bind(LGC.Login(app))
+app.bind(CC.Common(app))
 
 # Instructions for running application
 if __name__ == "__main__":
