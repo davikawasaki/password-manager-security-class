@@ -3,8 +3,17 @@
     padding-left: 15px;
 }
 
-.form{
+form, #actionBtns {
     padding: 2%;
+}
+
+.reccode {
+  padding: 5%;
+}
+
+.error {
+  margin: 0 2%;
+  padding: 1%;
 }
 
 .divider{
@@ -12,13 +21,13 @@
 }
 
 .warningText, .passCheck{
-  display: none;
   margin-top: 10px;
 }
 
 .loginImg {
   height: 15vh;
   width: 15vh;
+  margin: 2em;
 }
 
 .fields{
@@ -29,6 +38,10 @@
   margin-top: 10px;
 }
 
-.resetCode{
-    background-color: #00e5ff;
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: hidden;
 }
