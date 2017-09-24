@@ -3,6 +3,11 @@ $(document).ready(function(){
     $('.modal').modal();
 });
 
+// Hides recovery master password code
+$('#reccode-list-passwords').on('click', function() {
+    $('#recoveryPasswordRegisterModal').addClass('display-none');
+});
+
 // Adds passwordConfirm validation function
 $('#password').on('focusout', function () {
     if ($(this).val() != $('#passwordConfirm').val()) {
@@ -46,4 +51,24 @@ $('#cancelDeleteModalBtn').on('click', function() {
 });
 $('#cancelAddModalBtn').on('click', function() {
     $('#addModal').modal('close');
+});
+
+// Get row information to remove data
+$(".delete-data-row").on('click', function() {
+    var $row = $(this).parent().parent();    // Find the row
+    // Set delete text
+    $('#removeInfoName').val($row.find(".data-name").text());
+    $('#removeLogin').val($row.find(".data-login").text());
+    $('#removePassword').val($row.find(".data-password").text());
+    $('#removeTimestamp').val($row.find(".data-timestamp").text());
+});
+
+// Get row information to update data
+$(".edit-data-row").on('click', function() {
+    var $row = $(this).parent().parent();    // Find the row
+    // Set delete text
+    $('#updateInfoName').val($row.find(".data-name").text());
+    $('#updateLogin').val($row.find(".data-login").text());
+    $('#updatePassword').val($row.find(".data-password").text());
+    $('#updateTimestamp').val($row.find(".data-timestamp").text());
 });
