@@ -3,6 +3,8 @@ import os, sys, time, datetime
 from Crypto.Protocol import KDF
 from Crypto.Cipher import AES
 import hashlib
+import ListDataClass as LDC
+import CommonClass as CC
 
 KEY_LENGTH = 32
 
@@ -11,18 +13,23 @@ class UpdateData(htmlPy.Object):
     def __init__(self, app):
         super(UpdateData, self).__init__()
         self.app = app
+        self.common = CC.Common(self.app)
+        self.listData = LDC.ListData(self.app)
 
     @htmlPy.Slot(str, result=str)
-    def updateInfo(self, data):
-        if self.checkAuth('password', data.password, data.username):
+    def updateInfo(self, json_data="[]"):
+        data = json.loads(json_data)
+        if(not data['masterPassword']):
+            self.listData.listInfo(data, "Wrong master password while removing a service! Try again.")
+        elif self.common.checkAuth('password', data['masterPassword'], data['username']):
             # Get decrypted intermediary key
-            key = self.decryptKey('password', data.password, data.username)
+            key = self.common.decKey('password', data['masterPassword'], data['username'])
             # Open iv to encrypt data info
-            iv = open('../data/security/iv_data_' + str(KEY_LENGTH/2) + '_' + data.username + '.txt').read()
+            iv = open(os.path.dirname(__file__) + '/../data/security/iv_data_' + str(KEY_LENGTH/2) + '_' + data['username'] + '.txt').read()
             # Open data info file
-            df = open('../data/info/' + data.infoName + '_enc_' + data.username + '_' + data.timestamp + '.txt', 'w')
+            df = open(os.path.dirname(__file__) + '/../data/info/' + 'data_enc_' + data['username'] + '_' + data['timestamp'] + '.txt', 'w')
             # Pad data info
-            infoPad = self.pad(data.infoPass, len(key))
+            infoPad = self.common.pad(data['infoName'] + '\n' + data['login'] + '\n' + data['password'], len(key))
 
             # Create the cipher object and process the input stream
             cipher = AES.AESCipher(key, AES.MODE_CBC, iv)
@@ -32,38 +39,9 @@ class UpdateData(htmlPy.Object):
             df.write(encData)
             df.close()
             key = None
-            return True
+            
+            # Replace masterPassword to password attr (listInfo requires the masterPassword as password)
+            data['password'] = data['masterPassword']
+            self.listData.listInfo(data, "")
         else:
-            return 'Senha incorreta!'
-
-    def checkAuth(self, fileType, pw, user):
-        hf = open('../data/security/hash_' + fileType + '_' + user + '.txt', 'rb').read()
-        hash = hashlib.sha256(pw).hexdigest()
-        if(hash == hf):
-            return True
-        else:
-            return False
-
-    def decryptKey(self, fileType, pw, user):
-        # Read password salt and iv
-        iv = open('../data/security/iv_'  + fileType + '_' + str(KEY_LENGTH/2) + '_' + user + '.txt', 'rb').read()
-        salt = open('../data/security/salt_'  + fileType + '_' + str(KEY_LENGTH) + '_' + user + '.txt', 'rb').read()
-
-        # Read encrypted intermediary key
-        enc = open('../data/security/aes_' + fileType + '_enc_' + str(KEY_LENGTH) + '_' + user + '.key' , 'rb').read()
-
-        # Generate KDF secret key
-        pk = KDF.PBKDF2(pw, salt, KEY_LENGTH, 1000, None)
-
-        # Create the cipher object and decrypt intermediary key with KDF secret key
-        cipher = AES.AESCipher(pk, AES.MODE_CBC, iv)
-        return self.unpad(cipher.decrypt(enc[len(pk)/2:]))
-
-    def genTimestamp(self):
-        return time.mktime(datetime.datetime.now().timetuple())
-
-    def pad(self, s, bs):
-        return s + (bs - len(s) % bs) * chr(bs - len(s) % bs)
-
-    def unpad (self, s):
-        return s[0:-ord(s[-1])]
+            self.listData.listInfo(data, "Wrong master password while adding a new service! Try again.")
