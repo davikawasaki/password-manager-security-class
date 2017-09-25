@@ -22,6 +22,7 @@ class UpdateData(htmlPy.Object):
         if(not data['masterPassword']):
             self.listData.listInfo(data, "Wrong master password while removing a service! Try again.")
         elif self.common.checkAuth('password', data['masterPassword'], data['username']):
+            print 'timestamp: ' + data['timestamp']
             # Get decrypted intermediary key
             key = self.common.decKey('password', data['masterPassword'], data['username'])
             # Open iv to encrypt data info

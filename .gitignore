@@ -102,3 +102,6 @@ ENV/
 
 # idea IDE files
 /.idea/
+
+# ignore info and security
+python/app/data
