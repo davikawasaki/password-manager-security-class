@@ -1,8 +1,4 @@
 import htmlPy, json
-import os, sys
-from Crypto.Protocol import KDF
-from Crypto.Cipher import AES
-import hashlib
 import CommonClass as CC
 import ListDataClass as LDC
 
@@ -24,14 +20,17 @@ class ResetPassword(htmlPy.Object):
     @htmlPy.Slot(str, result=str)
     def resetPw(self, json_data="[]"):
         print '[LOG] Reseting pw process...'
-        data = json.loads(json_data)        
+        data = json.loads(json_data)
+        # Needs to decode reccode to decrypt properly the intermediary key
+        reccode_decoded = data['reccode'].decode('base-64')
+        # Check form empty
         if(not data['username'] or not data['password'] or not data['reccode']):
             self.app.template = ("reset.html", {"error": "User and/or password/recovery code can't be empty!"})
         # Decode reccode before hashing
-        elif self.common.checkAuth('reccode', data['reccode'].decode('base-64'), data['username']):
+        elif self.common.checkAuth('reccode', reccode_decoded, data['username']):
             # Check user and reccode
             # Get decrypted intermediary key from reccode
-            key = self.common.decKey('reccode', data['reccode'], data['username'])
+            key = self.common.decKey('reccode', reccode_decoded, data['username'])
             
             # Encrypt intermediary secret pw with new master password
             # Generate salt for KDF encryption and iv for key encryption

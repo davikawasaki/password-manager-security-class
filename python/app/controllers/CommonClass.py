@@ -1,5 +1,7 @@
-import htmlPy, json, datetime, time
-import os, sys, re, fnmatch
+import htmlPy
+import datetime
+import time
+import os
 from Crypto.Protocol import KDF
 from Crypto.Cipher import AES
 import hashlib
@@ -78,7 +80,7 @@ class Common(htmlPy.Object):
         # Create the cipher object and decrypt intermediary key with KDF secret key
         cipher = AES.AESCipher(pk, AES.MODE_CBC, iv)
         key = self.unpad(cipher.decrypt(enc[len(pk)/2:]))
-        print 'key: ' + key.encode('base-64')
+        print 'deckey ' + fileType + ': ' + key.encode('base-64')
         return key
 
     def encKey(self, pw, key, salt, iv, fileType, user):
@@ -92,6 +94,7 @@ class Common(htmlPy.Object):
         cipher = AES.AESCipher(pk, AES.MODE_CBC, iv)
 
         encKey = iv + cipher.encrypt(key_padded)
+        print 'enckey ' + fileType + ': ' + encKey.encode('base-64')
         self.storeEncKey(encKey, fileType, user)
 
         key = None

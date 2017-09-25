@@ -1,8 +1,9 @@
-import htmlPy, json, datetime
-import os, sys, re, fnmatch
-from Crypto.Protocol import KDF
+import htmlPy
+import json
+import os
+import re
+import fnmatch
 from Crypto.Cipher import AES
-import hashlib
 import CommonClass as CC
 
 KEY_LENGTH = 32

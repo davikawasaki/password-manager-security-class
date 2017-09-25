@@ -1,8 +1,6 @@
-import htmlPy, json
-import os, sys
-from Crypto.Protocol import KDF
-from Crypto.Cipher import AES
-import hashlib
+import htmlPy
+import json
+import os
 import CommonClass as CC
 import ListDataClass as LDC
 
@@ -37,7 +35,7 @@ class Register(htmlPy.Object):
 
             # Generate intermediary key
             key = self.common.genRandom()
-            print key.encode('base-64')
+            print 'original intermediary key: ' + key.encode('base-64')
 
             # Hash password and encript intermediary key
             self.common.genHash(data['password'], 'password', data['username'])
