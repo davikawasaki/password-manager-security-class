@@ -4,11 +4,15 @@ This work covers a password manager project developed with symmetric AES keys an
 
 The goal is to enable an user to store her/his services' passwords in a encrypted PBE system, with a manageable and strong secret password. The first intention is to develop with Python language and then with Javascript.
 
+![Password Manager Software Developed in htmlPy](https://raw.githubusercontent.com/davikawasaki/password-manager-security-class/master/imgs/pw-manager-list.png)
+
 # TECHNOLOGIES & LIBRARIES USED
 
 1) [Python 2.7](https://docs.python.org/2/)
 
 2) [PyCrypto API 2.6](https://www.dlitz.net/software/pycrypto/api/2.6/)
+
+3) [Jinja2](http://jinja.pocoo.org/docs/2.9/)
 
 3) [Hashlib](https://docs.python.org/2/library/hashlib.html)
 
@@ -40,7 +44,53 @@ In order to meet with those requirements, the project uses the PBE methodology. 
 
 ![Using Recovery Codes to Create Recoverable Copies of the Intermediate Key](https://raw.githubusercontent.com/davikawasaki/password-manager-security-class/master/imgs/crypt_pbe_recovery_questions.png)
 
-Using Recovery Codes to Create Recoverable Copies of the Intermediate Key
+# INSTALLATION
+
+1\. Install htmlPy with pip:
+
+```
+$ [sudo] pip install htmlPy
+```
+
+2\. Install PySide library:
+
+2.1\. In Windows:
+
+```
+$ pip install PySide
+```
+
+2.2\. In MacOS X:
+
+```
+$ brew install qt
+or
+$ pip install PySide
+```
+
+2.3\. In Linux:
+
+```
+$ sudo apt-get install python-pyside
+```
+
+3\. Install Jinja2 framework:
+
+```
+$ [sudo] pip install Jinja2
+```
+
+4\. After the packages installation, you need to set permissions to python/app/main.py to run:
+
+```
+$ chmod +x main.py
+```
+
+5\. Run the PW Manager with python 2.7:
+
+```
+$ ./main.py
+```
 
 # REFERENCES
 
