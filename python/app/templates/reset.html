@@ -32,15 +32,21 @@
                     </ti>
                     <div class="input-field col s12">
                         <input id="reccode-reset-pw" type="password" name="reccode"
-                                placeholder="Recovery Code" required minlength="8">
+                                placeholder="Recovery Code" required class="validate">
+                        <label id="lblReccode-reset-pw" for="reccode-reset-pw"
+                               data-error="Please enter the Recovery Code"></label>
                     </div>
                     <div class="input-field col s12">
                         <input id="username-reset-pw" type="text" name="username"
-                                placeholder="Username" required minlength="6">
+                                placeholder="Username" required class="validate">
+                        <label id="lblUsername-reset-pw" for="username-reset-pw"
+                               data-error="Please enter the Username"></label>
                     </div>
                     <div class="input-field col s12">
                         <input id="password-reset-pw" type="password" name="password"
-                                placeholder="Master Password" required minlength="8">
+                                placeholder="Master Password" required class="validate">
+                        <label id="lblPassword-reset-pw" for="password-reset-pw"
+                               data-error="Please enter the Master Password"></label>
                     </div>
                 </div>
                 <input class="col s12 waves-effect waves-light btn modal-trigger" id="sendResetBtn" type="submit" value="Reset" />
@@ -62,6 +68,4 @@
     <script type="text/javascript" src="{{ 'js/jquery-3.2.1.js' | staticfile }}"></script>
     <!--Import materialize.js-->
     <script type="text/javascript" src="{{ 'js/materialize.js' | staticfile }}"></script>
-    <!--Import custom js-->
-    <script type="text/javascript" src="{{ 'js/reset.js' | staticfile }}"></script>
 </html>

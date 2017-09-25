@@ -33,11 +33,15 @@
                     </ti>
                     <div class="input-field col s12">
                         <input id="username-register" type="text" name="username"
-                                placeholder="Username" required minlength="6">
+                                placeholder="Username" required class="validate">
+                        <label id="lblUsername" for="username-register"
+                               data-error="Please enter a Username"></label>
                     </div>
                     <div class="input-field col s12">
                         <input id="password-register" type="password" name="password"
-                                placeholder="Password" required minlength="8">
+                                placeholder="Password" required class="validate">
+                        <label id="lblPasswordRegister" for="password-register"
+                               data-error="Please enter a Master Password"></label>
                     </div>
                 </div>
                 <input class="col s12 waves-effect waves-light btn modal-trigger" id="sendRegisterBtn" type="submit" value="Register" />

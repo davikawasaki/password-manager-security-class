@@ -28,12 +28,16 @@
                     <img src="{{ 'img/shield.png' | staticfile }}" class="loginImg">
                     <div class="input-field col s12">
                         <input id="username-login" type="text" placeholder="Username"
-                               name="username" required minlength="6">
+                               name="username" required class="validate">
+                        <label id="lblUsername" for="username-login"
+                               data-error="Please enter a username"></label>
                     </div>
                     <div class="input-field col s12">
-                        <input id="password-login" type="password" placeholder="Password"
-                               class="password-login-main"
-                               name="password" required minlength="8">
+                        <input id="password-login" type="password" placeholder="Master Password"
+                               class="password-login-main validate"
+                               name="password" required>
+                        <label id="lblMasterPassword" for="password-login"
+                               data-error="Please enter a Master Password"></label>
                     </div>
                 </div>
                 <input class="col s12 waves-effect waves-light btn modal-trigger" id="send-login-btn" type="submit" value="Login">
@@ -52,8 +56,8 @@
         </div>
 
     </body>
+    <!--Import jquery.js-->
+    <script type="text/javascript" src="{{ 'js/jquery-3.2.1.js' | staticfile }}"></script>
     <!--Import materialize.js-->
     <script type="text/javascript" src="{{ 'js/materialize.js' | staticfile }}"></script>
-
-    <script type="text/javascript" src="{{ 'js/login.js' | staticfile }}"></script>
 </html>
