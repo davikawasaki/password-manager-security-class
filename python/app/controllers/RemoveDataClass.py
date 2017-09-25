@@ -18,6 +18,7 @@ class RemoveData(htmlPy.Object):
 
     @htmlPy.Slot(str, result=str)
     def removeInfo(self, json_data="[]"):
+        print '[LOG] Removing service information...'
         data = json.loads(json_data)
         if(not data['masterPassword']):
             self.listData.listInfo(data, "Wrong master password while removing a service! Try again.")
@@ -25,7 +26,8 @@ class RemoveData(htmlPy.Object):
             # Get decrypted intermediary key
             key = self.common.decKey('password', data['masterPassword'], data['username'])
             # Remove file from respective info
-            os.remove(os.path.abspath(__file__ + "/../../data/") + '/info/' + 'data_enc_' + data['username'] + '_' + data['timestamp'] + '.txt')
+            path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/data/info/data_enc_' + data['username'] + '_' + data['timestamp'] + '.txt'
+            os.remove(path)
 
             key = None
 

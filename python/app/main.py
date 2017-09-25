@@ -15,6 +15,7 @@ from controllers import UpdateDataClass as UDC
 from controllers import RemoveDataClass as REDC
 from controllers import LoginClass as LGC
 from controllers import CommonClass as CC
+from controllers import ResetPasswordClass as RPC
 
 # Initial config
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -34,8 +35,6 @@ app.window.setWindowIcon(PySide.QtGui.QIcon(BASE_DIR + "/static/img/icon.png"))
 app.template = ("index.html", {"list": []})
 
 # Binding of back-end functionalities with GUI
-
-# Register back-end functionalities
 app.bind(RC.Register(app))
 app.bind(LDC.ListData(app))
 app.bind(RDC.RegisterData(app))
@@ -43,6 +42,7 @@ app.bind(REDC.RemoveData(app))
 app.bind(UDC.UpdateData(app))
 app.bind(LGC.Login(app))
 app.bind(CC.Common(app))
+app.bind(RPC.ResetPassword(app))
 
 # Instructions for running application
 if __name__ == "__main__":

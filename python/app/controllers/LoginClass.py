@@ -18,10 +18,12 @@ class Login(htmlPy.Object):
 
     @htmlPy.Slot()
     def loadLogin(self):
+        print '[LOG] Loading main login page...'
         self.app.template = ("index.html", {})
 
     @htmlPy.Slot(str, result=str)
     def logUser(self, json_data="[]"):
+        print '[LOG] Logging user...'
         data = json.loads(json_data)
         if self.common.checkAuth('password', data['password'], data['username']):
             self.listData.listInfo(data, "")
@@ -30,4 +32,5 @@ class Login(htmlPy.Object):
 
     @htmlPy.Slot()
     def logout(self):
+        print '[LOG] Logging user out...'
         self.app.template = ("index.html", {})

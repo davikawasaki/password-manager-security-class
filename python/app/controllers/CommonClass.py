@@ -17,7 +17,8 @@ class Common(htmlPy.Object):
             return False
         else: 
             try:
-                hf = open(os.path.dirname(__file__) + '/../data/security/hash_' + fileType + '_' + user + '.txt', 'r').read()
+                path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/data/security/hash_' + fileType + '_' + user + '.txt'
+                hf = open(path, 'r').read()
                 hash = hashlib.sha256(pw).hexdigest()
                 if(hash == hf):
                     return True
@@ -44,7 +45,8 @@ class Common(htmlPy.Object):
 
     def genSalt(self, fileType, user):
         # Randomly generate a fileType salt
-        sf = open(os.path.dirname(__file__) + '/../data/security/salt_' + fileType + '_' + str(KEY_LENGTH) + '_' + user + '.txt', 'w')
+        path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/data/security/salt_' + fileType + '_' + str(KEY_LENGTH) + '_' + user + '.txt'
+        sf = open(path, 'w')
         salt = os.urandom(KEY_LENGTH)
         sf.write(salt)
         sf.close()
@@ -52,7 +54,8 @@ class Common(htmlPy.Object):
 
     def genIV(self, fileType, user):
         # Randomly generate a fileType iv
-        ivf = open(os.path.dirname(__file__) + '/../data/security/iv_' + fileType + '_' + str(KEY_LENGTH/2) + '_' + user + '.txt', 'w')
+        path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/data/security/iv_' + fileType + '_' + str(KEY_LENGTH/2) + '_' + user + '.txt'
+        ivf = open(path, 'w')
         iv = os.urandom(KEY_LENGTH/2)
         ivf.write(iv)
         ivf.close()
@@ -60,38 +63,51 @@ class Common(htmlPy.Object):
 
     def decKey(self, fileType, pw, user):
         # Read password salt and iv
-        iv = open(os.path.dirname(__file__) + '/../data/security/iv_'  + fileType + '_' + str(KEY_LENGTH/2) + '_' + user + '.txt', 'r').read()
-        salt = open(os.path.dirname(__file__) + '/../data/security/salt_'  + fileType + '_' + str(KEY_LENGTH) + '_' + user + '.txt', 'r').read()
+        path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/data/security/iv_'  + fileType + '_' + str(KEY_LENGTH/2) + '_' + user + '.txt'
+        iv = open(path, 'r').read()
+        path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/data/security/salt_'  + fileType + '_' + str(KEY_LENGTH) + '_' + user + '.txt'
+        salt = open(path, 'r').read()
 
         # Read encrypted intermediary key
-        enc = open(os.path.dirname(__file__) + '/../data/security/aes_' + fileType + '_enc_' + str(KEY_LENGTH) + '_' + user + '.key' , 'r').read()
+        path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/data/security/aes_' + fileType + '_enc_' + str(KEY_LENGTH) + '_' + user + '.key'
+        enc = open(path, 'r').read()
 
         # Generate KDF secret key
         pk = KDF.PBKDF2(pw, salt, KEY_LENGTH, 1000, None)
 
         # Create the cipher object and decrypt intermediary key with KDF secret key
         cipher = AES.AESCipher(pk, AES.MODE_CBC, iv)
-        return self.unpad(cipher.decrypt(enc[len(pk)/2:]))
+        key = self.unpad(cipher.decrypt(enc[len(pk)/2:]))
+        print 'key: ' + key.encode('base-64')
+        return key
 
     def encKey(self, pw, key, salt, iv, fileType, user):
         # Generate KDF secret key
         pk = KDF.PBKDF2(pw, salt, KEY_LENGTH, 1000, None)
 
+        # Pad intermediary key with pk length
+        key_padded = self.pad(key, len(pk))
+
         # Create the cipher object and encrypt intermediary key with KDF secret key
         cipher = AES.AESCipher(pk, AES.MODE_CBC, iv)
 
-        encKey = iv + cipher.encrypt(key)
+        encKey = iv + cipher.encrypt(key_padded)
         self.storeEncKey(encKey, fileType, user)
 
+        key = None
+        key_padded = None
+
     def storeEncKey(self, encKey, fileType, user):
-        kf = open(os.path.dirname(__file__) + '/../data/security/aes_' + fileType + '_enc_' + str(KEY_LENGTH) + '_' + user + '.key', 'w')
+        path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/data/security/aes_' + fileType + '_enc_' + str(KEY_LENGTH) + '_' + user + '.key'
+        kf = open(path, 'w')
         kf.write(encKey)
         kf.close()
 
     def genRecCode(self):
-        return os.urandom(KEY_LENGTH/4).encode('base-64')
+        return os.urandom(KEY_LENGTH/4)
 
     def genHash(self, pw, fileType, user):
-        hf = open(os.path.dirname(__file__) + '/../data/security/hash_' + fileType + '_' + user + '.txt', 'w')
+        path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/data/security/hash_' + fileType + '_' + user + '.txt'
+        hf = open(path, 'w')
         hf.write(hashlib.sha256(pw).hexdigest())
         hf.close()

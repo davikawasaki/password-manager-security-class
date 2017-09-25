@@ -18,6 +18,7 @@ class UpdateData(htmlPy.Object):
 
     @htmlPy.Slot(str, result=str)
     def updateInfo(self, json_data="[]"):
+        print '[LOG] Updating service information...'
         data = json.loads(json_data)
         if(not data['masterPassword']):
             self.listData.listInfo(data, "Wrong master password while removing a service! Try again.")
@@ -25,9 +26,11 @@ class UpdateData(htmlPy.Object):
             # Get decrypted intermediary key
             key = self.common.decKey('password', data['masterPassword'], data['username'])
             # Open iv to encrypt data info
-            iv = open(os.path.dirname(__file__) + '/../data/security/iv_data_' + str(KEY_LENGTH/2) + '_' + data['username'] + '.txt').read()
+            path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/data/security/iv_data_' + str(KEY_LENGTH/2) + '_' + data['username'] + '.txt'
+            iv = open(path, 'r').read()
             # Open data info file
-            df = open(os.path.dirname(__file__) + '/../data/info/' + 'data_enc_' + data['username'] + '_' + data['timestamp'] + '.txt', 'w')
+            path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/data/info/data_enc_' + data['username'] + '_' + data['timestamp'] + '.txt'
+            df = open(path, 'w')
             # Pad data info
             infoPad = self.common.pad(data['infoName'] + '\n' + data['login'] + '\n' + data['password'], len(key))
 

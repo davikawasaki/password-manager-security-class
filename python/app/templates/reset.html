@@ -12,62 +12,51 @@
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="{{ 'css/materialize.css' | staticfile }}"  media="screen,projection"/>
         <!--Import custom Stylesheet-->
-        <link rel="stylesheet" href="{{ 'css/reset.css' | staticfile }}"/>
+        <link rel="stylesheet" href="{{ 'css/login.css' | staticfile }}"/>
     </head>
     <!--The body of the page itself-->
-    <body>
-        <ul id="slide-out" class="side-nav fixed">
-            <li><div class="user-view">
-                <div class="background">
-                    <img src="{{ 'img/password-security.png' | staticfile }}">
-                </div>
-                <div class="row">
-                    <a href="#" class="col s4"><img class="circle" src="{{ 'img/avatar.png' | staticfile }}"></a>
-                    <a href="#" class="col s8"><span class="white-text name">John Snow</span></a>
-                </div>
-            </div>
-            </li>
-            <div id="navOps">
-                <li><a class="subheader">Password Manager</a></li>
-                <li><a href="home.html" class="waves-effect" id="homeBtn"><i class="material-icons">home</i>Home</a></li>
-                <li><a href="passwords.html" class="waves-effect" id="passwordsBtn"><i class="material-icons">lock_outline</i>Passwords</a></li>
-                <li><a href="#" class="waves-effect" id="masterKeyBtn"><i class="material-icons">vpn_key</i>Reset Master Password</a></li>
-            </div>
-        </ul>
+    <body class="white">
         <nav>
-            <div class="nav-wrapper teal lighten-4">
-                <a href="#" class="brand-logo" id="logo">Change Password</a>
+            <div class="nav-wrapper teal lighten-2">
+                <a href="#" class="brand-logo" id="logo">Reset Password</a>
             </div>
         </nav>
-        <form class="form">
-            <div class="row">
+        <div class="row">
+            <form action="ResetPassword.resetPw" id="reset-pw-form" data-bind="true">
                 <div class="fields" id="fields">
-                  <h4>Attention</h4>
-                  <ti>
-                    In order to change your password you will need to have the registration code.
-                  </ti>
-                  <div class="input-field col s12">
-                      <input id="registrationCode" type="text"
-                             class="validate" required>
-                      <label id="lblRegistrationCode" for="registrationCode">Registraton Code</label>
-                  </div>
-                  <div class="input-field col s12">
-                      <input id="password" type="password"
-                             class="validate" required minlength="8">
-                      <label id="lblPassword" for="password"
-                             data-error="Password must contain a minimun of 8 characters">New Password</label>
-                  </div>
-                  <div class="input-field col s12 passCheck">
-                      <input id="passwordConfirm" type="password" class="validate">
-                      <label id="lblPasswordConfirm" for="passwordConfirm"
-                             data-error="Password not match">Confirm Password</label>
-                  </div>
+                    <ti class="col s12"><strong><font size="5">Password Manager - Created by André Poletto, Davi Kawasaki, João Bertoncini</font></strong></ti>
+                    <img src="{{ 'img/shield.png' | staticfile }}" class="loginImg">
+                    <h4 class="warningText">Reseting your Password</h4>
+                    <ti>
+                        Insert the recovery code you received when registering together with your username and new master password.
+                    </ti>
+                    <div class="input-field col s12">
+                        <input id="reccode-reset-pw" type="password" name="reccode"
+                                placeholder="Recovery Code" required minlength="8">
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="username-reset-pw" type="text" name="username"
+                                placeholder="Username" required minlength="6">
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="password-reset-pw" type="password" name="password"
+                                placeholder="Master Password" required minlength="8">
+                    </div>
                 </div>
-                <a class="col s5 offset-s7 waves-effect waves-light btn modal-trigger" id="sendBtn">
-                    <i class="material-icons right">send</i>Reset Password
-                </a>
-            </div>
-        </form>
+                <input class="col s12 waves-effect waves-light btn modal-trigger" id="sendResetBtn" type="submit" value="Reset" />
+            </form>
+        </div>
+        {% if error %}
+        <div class="row">
+            <div class="card-panel red lighten-2 error s12 white-text">{{ error }}</div>
+        </div>
+        {% endif %}
+        <div class="divider">
+        </div>
+        <div id="actionBtns">
+            <a href="Login.loadLogin" id="link-login-from-reset" data-bind="true" class="grey-text col s2 right">Login</a>
+        </div>
+
     </body>
     <!--Import jquery.js-->
     <script type="text/javascript" src="{{ 'js/jquery-3.2.1.js' | staticfile }}"></script>

@@ -18,12 +18,13 @@ class Register(htmlPy.Object):
 
     @htmlPy.Slot()
     def loadRegUser(self):
+        print '[LOG] Loading new user registration page...'
         self.app.template = ("register.html", {})
 
     @htmlPy.Slot(str, result=str)
     def regUser(self, json_data="[]"):
+        print '[LOG] Registering new user...'
         data = json.loads(json_data)
-        print data
         if(not data['username'] or not data['password']):
             self.app.template = ("register.html", {"error": "User and/or password can't be empty!"})
         elif self.checkUserExistence('password', data['username']):
@@ -36,11 +37,11 @@ class Register(htmlPy.Object):
 
             # Generate intermediary key
             key = self.common.genRandom()
-            key_padded = self.common.pad(key, len(key))
+            print key.encode('base-64')
 
             # Hash password and encript intermediary key
             self.common.genHash(data['password'], 'password', data['username'])
-            self.common.encKey(data['password'], key_padded, salt, iv, 'password', data['username'])
+            self.common.encKey(data['password'], key, salt, iv, 'password', data['username'])
 
             # ENCRYPT INTERMEDIARY KEY WITH KDF RECOVERY CODE
             # Generate salt for KDF encryption and iv for key encryption
@@ -50,16 +51,19 @@ class Register(htmlPy.Object):
             # Hash recovery code and encript intermediary key
             reccode = self.common.genRecCode()
             self.common.genHash(reccode, 'reccode', data['username'])
-            self.common.encKey(reccode, key_padded, salt, iv, 'reccode', data['username'])
+            self.common.encKey(reccode, key, salt, iv, 'reccode', data['username'])
 
             # Generate info encryption iv
             ivD = self.common.genIV('data', data['username'])
+
+            key = None
             
-            self.listData.listInfoAfterRegister(data, reccode)
+            self.listData.listInfoAfterRegister(data, reccode.encode('base-64'))
 
     def checkUserExistence(self, fileType, user):
         try:
-            hf = open(os.path.dirname(__file__) + '/../data/security/hash_' + fileType + '_' + user + '.txt', 'rb').read()
+            path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/data/security/hash_' + fileType + '_' + user + '.txt'
+            hf = open(path, 'rb').read()
             if(hf):
                 return True
             else:
