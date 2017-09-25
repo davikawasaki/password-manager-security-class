@@ -46,7 +46,6 @@ class ListData(htmlPy.Object):
         for file in userData:
             # Get service name (data_enc_username_timestamp.txt)
             path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + file
-            print path
             m = re.match(r'(.*?)/data/info/data_enc_(.*?)_(.*?).txt', path, re.M|re.I)
             # Decrypt service pw
             enc = open(path , 'r').read()
@@ -55,7 +54,6 @@ class ListData(htmlPy.Object):
             # [ Service name / Login / Pw ]
             loginPw = self.common.unpad(cipher.decrypt(enc[keyLen/2:])).splitlines()
 
-            print loginPw
             class data: name = loginPw[0]; login = loginPw[1]; password = loginPw[2]; timestamp = m.group(3)
 
             userDataDec.append(data)

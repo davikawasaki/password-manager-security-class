@@ -35,7 +35,7 @@ class Register(htmlPy.Object):
 
             # Generate intermediary key
             key = self.common.genRandom()
-            print 'original intermediary key: ' + key.encode('base-64')
+            # print 'original intermediary key: ' + key.encode('base-64')
 
             # Hash password and encript intermediary key
             self.common.genHash(data['password'], 'password', data['username'])

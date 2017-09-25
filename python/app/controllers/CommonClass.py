@@ -86,7 +86,7 @@ class Common(htmlPy.Object):
         # Create the cipher object and decrypt intermediary key with KDF secret key
         cipher = AES.AESCipher(pk, AES.MODE_CBC, iv)
         key = self.unpad(cipher.decrypt(enc[len(pk)/2:]))
-        print 'deckey ' + fileType + ': ' + key.encode('base-64')
+        # print 'deckey ' + fileType + ': ' + key.encode('base-64')
         return key
 
     def encKey(self, pw, key, salt, iv, fileType, user):
@@ -100,7 +100,7 @@ class Common(htmlPy.Object):
         cipher = AES.AESCipher(pk, AES.MODE_CBC, iv)
 
         encKey = iv + cipher.encrypt(key_padded)
-        print 'enckey ' + fileType + ': ' + encKey.encode('base-64')
+        # print 'enckey ' + fileType + ': ' + encKey.encode('base-64')
         self.storeEncKey(encKey, fileType, user)
 
         key = None
