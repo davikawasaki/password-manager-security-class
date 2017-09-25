@@ -10,6 +10,12 @@ KEY_LENGTH = 32
 
 class Common(htmlPy.Object):
 
+    """ Common service class with cryptography methods.
+
+    The class Common can be used to implement any common methods between controllers.
+
+    """
+
     def __init__(self, app):
         super(Common, self).__init__()
         self.app = app

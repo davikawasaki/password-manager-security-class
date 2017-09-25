@@ -102,6 +102,3 @@ ENV/
 
 # idea IDE files
 /.idea/
-
-# Cryptography files
-python/app/data
