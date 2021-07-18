@@ -1,0 +1,4 @@
+Jinja2==2.9
+htmlPy==2.0.0
+PySide==1.2.2
+pycrypto==2.6.1

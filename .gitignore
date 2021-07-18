@@ -105,3 +105,8 @@ ENV/
 
 # ignore info and security
 python/app/data
+
+# Venv
+pyvenv.cfg
+bin/
+python2.7
