@@ -90,9 +90,29 @@ $ ./main.py
 
 3) [Using Padding in Encryption](https://www.di-mgt.com.au/cryptopad.html)
 
+# FAQ
+
+> I'm trying to import PySide / Qt into Python like so and get the follow error:
+
+```bash
+from PySide import QtCore
+
+ImportError: dlopen(/usr/local/lib/python2.7/site-packages/PySide/QtCore.so, 2): Library not loaded: libpyside-python2.7.1.2.dylib
+  Referenced from: /usr/local/lib/python2.7/site-packages/PySide/QtCore.so
+  Reason: image not found
+```
+
+**Solution:** export the following variable to your terminal prior to the application startup (change your python path and version accordingly):
+
+```bash
+export DYLD_LIBRARY_PATH=/usr/local/lib/python[version]/site-packages/PySide
+```
+
+This will force the executable loader to scan for libraries into the path you supply too, even it's not configured by the linker. More info on this [here](https://stackoverflow.com/questions/25656307/pyside-qt-import-error).
+
 # AUTHORS
 
-This work is being developed to System Security undergrad-subject project. The people involved in the project are:
+This work was developed to a System Security undergrad-subject project. The people involved in the project are:
 
 Student: POLETTO, André // polettoandre [at] gmail.com
 
