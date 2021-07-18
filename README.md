@@ -46,39 +46,29 @@ In order to meet with those requirements, the project uses the PBE methodology. 
 
 # INSTALLATION
 
-1\. Install htmlPy with pip:
+> This project works only with Python 2.7. For Python 3.6, a compatibility between htmlPy and PySide2 needs deep investigation. Feel free to raise a PR for that, but I'm not going to support or try to investigate on my own.
 
-```
-$ [sudo] pip install htmlPy
-```
+> Please, try running this project with [virtualenv](https://virtualenv.pypa.io/en/latest/). It'll make your life easier.
 
-2\. Install PySide library:
+Make sure you have qt@5 installed on your machine – Qt GUI will be used for the application user interface.
 
-2.1\. In Windows:
+On MacOS:
 
-```
-$ pip install PySide
+```bash
+brew install qt@5
 ```
 
-2.2\. In MacOS X:
+On Ubuntu, follow [this tutorial](https://wiki.qt.io/Install_Qt_5_on_Ubuntu) – for other distros, follow [this tutorial](https://doc.qt.io/qt-5/linux.html).
 
-```
-$ brew install qt
-or
-$ pip install PySide
-```
+On Windows, follow [this tutorial](https://doc.qt.io/qt-5/windows.html).
 
-2.3\. In Linux:
+Run the following command on your terminal to install all necessary dependencies from `requirements.txt` file:
 
-```
-$ sudo apt-get install python-pyside
+```bash
+pip install -r requirements.txt
 ```
 
-3\. Install Jinja2 framework:
-
-```
-$ [sudo] pip install Jinja2
-```
+These will install htmlPy, PySide, Jinja2 and pycrypto.
 
 4\. After the packages installation, you need to set permissions to python/app/main.py to run:
 
